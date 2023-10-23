@@ -1,0 +1,50 @@
+{
+    "topic": "gfpb.json",
+    "data": {
+        "method": "syncSend",
+        "funcid": 926001,
+        "jgparams": {
+            "g_reqmsgid": "39c4c3e79dc84de7aeea9123de77cc28",
+            "g_connetorIP": "",
+            "g_sysid": 0,
+            "g_menuid": 99005733,
+            "g_funcid": 926001,
+            "g_userid": 0,
+            "g_userpwd": "",
+            "g_userway": "",
+            "g_stationaddr": "MID[99005733]",
+            "g_sessionid": "",
+            "g_gfstr": "",
+            "g_orifuncid": 0,
+            "g_chkuserid": 0,
+            "g_checksno": 0,
+            "g_confirmaction": "0",
+            "g_confirmlevel": "3",
+            "g_clientversion": "GFETWEB-V3.19.1",
+            "g_clienttime": "65e7caf5aaa1cc7716f0f06cef2d93c3",
+            "g_third_menuid": 0,
+            "g_apptype": "W",
+            "g_checksum": "",
+            "lastloginfo": null
+        },
+        "jparams": {
+            "busitype": 1,
+            "sub_busitype": 13,
+            "rset_level": 2,
+            "field_list": {
+                "keys": ["name", "type", "symbol", "value"],
+                "rows": [
+                    ["secutype", "char[64]", "<", "7000"],
+                    ["secutype", "char[64]", ">=", "6000"],
+                    ["incometype", "constant", "in", "(0,1)"],
+                    ["purchaseway", "char[255]", "like", "%gifts%"],
+                    ["secucode", "constant", "in", "('110008','485111','110027','050016','003327')"]
+                ]
+            },
+            "fuzzy_field_list": {
+                "keys": ["name", "type", "symbol", "value"],
+                "rows": []
+            }
+        }
+    }
+}
