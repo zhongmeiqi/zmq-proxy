@@ -1,11 +1,12 @@
 // import webKey from "./web-key.json" assert { type: "json" };
 import CryptoJS from "crypto-js";
 import fs, { readFileSync } from "fs";
+import { requsetMatch, isFileExisted } from "./match.js";
 
 const KEY = "4deVMFIBoAdPT6f9";
 const IV = "ud7sG2wweODSlD19";
 
-const obj = {
+export const decryptObj = {
   decrypt: (crypted, key = KEY, iv = IV, encoder = CryptoJS.enc.Hex) => {
     const utf8Key = CryptoJS.enc.Utf8.parse(key);
     const utf8Iv = CryptoJS.enc.Utf8.parse(iv);
@@ -20,21 +21,31 @@ const obj = {
   },
 };
 
-export function saveRequest(result) {
+export async function saveRequest(result) {
   const data = readFileSync("./web-key.json");
   const _KEY = JSON.parse(data).tyt_key;
   const _IV = JSON.parse(data).tyt_iv;
 
-  const reqData = obj.decrypt(result, _KEY, _IV, CryptoJS.enc.Base64);
-  const { funcid } = JSON.parse(reqData).data;
-  if (funcid) {
-    fs.writeFileSync(`./requestSet/${funcid}.json`, reqData, (error) => {
-      if (error) {
-        console.log(`requset创建失败：${error}`);
-      }
-      // 创建成功
-      console.log(`request创建成功`);
-    });
+  const reqData = JSON.parse(
+    decryptObj.decrypt(result, _KEY, _IV, CryptoJS.enc.Base64)
+  );
+  const { funcid, jparams, jgparams } = reqData.data;
+  const { g_reqmsgid: reqmsgid } = jgparams ? jgparams : { g_reqmsgid: "" };
+  if (funcid == 100047) {
+    console.log(funcid);
+  }
+  if (funcid && reqmsgid) {
+    requsetMatch(reqmsgid, JSON.stringify(reqData), funcid, jparams);
+    // const pathWay = "./dataBase";
+    // try {
+    //   const isExisted = await isFileExisted("./dataBase");
+    //   if (!isExisted) {
+    //     fs.mkdirSync(pathWay);
+    //   }
+    //   match("request", reqmsgid, JSON.stringify(reqData), funcid);
+    // } catch (error) {
+    //   console.log(error, "222222");
+    // }
   }
 
   // console.log(obj.decrypt(result, _KEY, _IV, CryptoJS.enc.Base64));

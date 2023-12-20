@@ -1,3 +1,6 @@
 node_modules
 orders/
 .DS_Store
+dataBase
+requestSet
+responseSet
